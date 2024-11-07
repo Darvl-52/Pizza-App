@@ -28,6 +28,6 @@ export const submit = async ({ e, dispatch }: SubmitParams) => {
     await sendLogin(email.value, password.value, dispatch)
 };
 
-const sendLogin = async (email: string, password: string, dispatch) => {
+const sendLogin = async (email: string, password: string, dispatch: AppDispatch) => {
     dispatch(login({email, password}));
 }

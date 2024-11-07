@@ -1,13 +1,13 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {loadState} from "../../app/store/storage.ts";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { loadState } from "../../app/store/storage.ts";
 import axios from "axios";
-import {PREFIX} from "../../shared/api/api.ts";
-import {LoginResponse} from "./auth/submitForm.ts";
-import {RootState} from "../../app/store";
+import { PREFIX } from "../../shared/api/api.ts";
+import { LoginResponse } from "./auth/submitForm.ts";
+import { RootState } from "../../app/store";
 
 export const JWT_STATE = 'userData';
 
-export interface UserPersistentState  {
+export interface UserPersistentState {
     jwt: string | undefined;
 }
 
@@ -32,7 +32,7 @@ const initialState: UserState = {
 }
 
 export const register = createAsyncThunk('user/register',
-    async (params: {email: string, password: string, name: string}) => {
+    async (params: { email: string, password: string, name: string }) => {
         const { data } = await axios.post<LoginResponse>(`${PREFIX}/auth/register`, {
             email: params.email,
             password: params.password,
@@ -43,7 +43,7 @@ export const register = createAsyncThunk('user/register',
 );
 
 export const login = createAsyncThunk('user/login',
-    async (params: {email: string, password: string}) => {
+    async (params: { email: string, password: string }) => {
         const { data } = await axios.post<LoginResponse>(`${PREFIX}/auth/login`, {
             email: params.email,
             password: params.password,
@@ -52,7 +52,7 @@ export const login = createAsyncThunk('user/login',
     }
 );
 
-export const getProfile = createAsyncThunk<Profile, void, {state: RootState}>('user/getProfile',
+export const getProfile = createAsyncThunk<Profile, void, { state: RootState }>('user/getProfile',
     async (_, thunkAPI) => {
         const jwt = thunkAPI.getState().user.jwt;
         const { data } = await axios.get<Profile>(`${PREFIX}/user/profile`, {
@@ -69,40 +69,38 @@ export const userSlice = createSlice({
     initialState,
     reducers: {
         logout: (state) => {
-          state.jwt = null;
+            state.jwt = null;
         },
         clearLoginError: (state) => {
-            state.loginErrorMessage = undefined;
+            state.loginErrorMessage = null;
         },
         clearRegisterError: (state) => {
-            state.registerErrorMessage = undefined;
+            state.registerErrorMessage = null;
         },
     },
     extraReducers: (builder) => {
-    builder.addCase(login.fulfilled, (state: UserState, action) => {
-        if(!action.payload) {
-            return;
-        }
-
-        state.jwt = action.payload.access_token;
-    });
-    builder.addCase(login.rejected, (state: UserState, action) => {
-        state.loginErrorMessage = action.error.message;
-    });
-    builder.addCase(getProfile.fulfilled, (state: UserState, action) => {
-        state.profile = action.payload
-    });
-    builder.addCase(register.fulfilled, (state: UserState, action) => {
-        if(!action.payload) {
-            return;
-        }
-
-        state.jwt = action.payload.access_token;
-    });
-    builder.addCase(register.rejected, (state: UserState, action) => {
-        state.registerErrorMessage = action.error.message;
-    });
-}
+        builder.addCase(login.fulfilled, (state: UserState, action) => {
+            if (!action.payload) {
+                return;
+            }
+            state.jwt = action.payload.access_token;
+        });
+        builder.addCase(login.rejected, (state: UserState, action) => {
+            state.loginErrorMessage = action.error.message || 'Unknown error';
+        });
+        builder.addCase(getProfile.fulfilled, (state: UserState, action) => {
+            state.profile = action.payload
+        });
+        builder.addCase(register.fulfilled, (state: UserState, action) => {
+            if (!action.payload) {
+                return;
+            }
+            state.jwt = action.payload.access_token;
+        });
+        builder.addCase(register.rejected, (state: UserState, action) => {
+            state.registerErrorMessage = action.error.message || 'Unknown error';
+        });
+    }
 });
 
 export const userActions = userSlice.actions;

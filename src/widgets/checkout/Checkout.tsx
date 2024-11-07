@@ -6,6 +6,7 @@ import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {cartAction} from "../../features/cart/cart.slice.ts";
+import {CartItem} from "../cartCardList/CardCartList.tsx";
 
 const DELIVERY_FEE = 169;
 
@@ -14,7 +15,7 @@ export function Checkout
     items,
     cartProducts,
 }: {
-    items: RootState;
+    items: CartItem[];
     cartProducts: Product[];
 })
 {

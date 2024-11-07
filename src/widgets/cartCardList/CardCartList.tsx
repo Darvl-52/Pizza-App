@@ -6,9 +6,14 @@ import {RootState} from "../../app/store";
 import axios from "axios";
 import {Checkout} from "../checkout/Checkout.tsx";
 
+export type CartItem = {
+    id: number;
+    count: number;
+}
+
 export function CardCartList () {
     const [cartProducts, setCartProducts] = useState<Product[]>([]);
-    const items = useSelector((s: RootState) => s.cart.items);
+    const items = useSelector((s: RootState) => s.cart.items) as CartItem[];
 
     const getItem = async (id: number) => {
         const {data} = await axios.get<Product>(`${PREFIX}/products/${id}`)
