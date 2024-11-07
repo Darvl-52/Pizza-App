@@ -1,0 +1,28 @@
+:root {
+    --primary-color: #FE724C;
+    --primary-hover-color: #C64220;
+    --text-color: #000000;
+    --email-color: #9EA1B1;
+    --text-color-secondary: #5B55E;
+    --white-color: #FFFF;
+    --separator-color: #D4D6E0;
+}
+
+@font-face {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Montserrat SemiBold", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text-color);
+}

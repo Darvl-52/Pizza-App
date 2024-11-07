@@ -1,0 +1,40 @@
+.line {
+    max-width: 512px;
+    display: flex;
+    justify-content: space-between;
+    padding: 17px;
+}
+
+.hr {
+    max-width: 512px;
+    margin: 0;
+    border: 1px solid #F1F2F3;
+}
+
+.line span {
+    color: #9796A1;
+}
+
+.text {
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.price {
+    font-size: 19px;
+    font-weight: 400;
+}
+
+.total {
+    font-size: 14px;
+    font-weight: 400;
+    color: #BEBEBE;
+}
+
+.checkout {
+    max-width: 512px;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    margin-top: 70px;
+}
