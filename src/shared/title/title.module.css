@@ -1,5 +1,5 @@
 .title {
-    font-size: 37px;
+    font-size: clamp(17px, 2vw, 37px);
     font-weight: 700;
     line-height: 120%;
 }

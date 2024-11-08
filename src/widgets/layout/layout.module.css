@@ -19,12 +19,12 @@
 
 .name {
     margin-top: 21px;
-    font-size: 20px;
+    font-size: clamp(16px, 1vw, 20px);
     font-weight: 700;
 }
 
 .email {
-    font-size: 14px;
+    font-size: clamp(13px, 1vw, 14px);
     color: var(--email-color);
 }
 
@@ -43,6 +43,7 @@
     color: var(--text-color);
     transition-duration: 0.25s;
     position: relative;
+    font-size: clamp(11px, 1vw, 16px);
 }
 
 .link:hover {
